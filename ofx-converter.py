@@ -3,14 +3,15 @@
 
 import pandas as pd
 from jinja2 import Template
+from pathlib import Path
 
 
 class OFXConverter:
 
-    def __init__(self):
+    def __init__(self, excel):
         self.template = 'template-neon-contabilizei.xml'
-        self.excel = 'inputfile.xlsx'
-        self.output = 'output.ofx'
+        self.excel = excel
+        self.output = '/'.join(map(str, [Path(excel).parent, Path(excel).stem])) + '.ofx'
 
     def read_data(self):
         df = pd.read_excel(self.excel, usecols=['Descrição', 'Data', 'Valor'])
@@ -34,5 +35,5 @@ class OFXConverter:
 
 
 if __name__ == '__main__':
-    ofx = OFXConverter()
+    ofx = OFXConverter('/home/christian/Downloads/lebrandt/extrato_periodo_neon_2020-08.xlsx')
     ofx.create()
