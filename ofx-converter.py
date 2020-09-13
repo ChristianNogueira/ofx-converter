@@ -27,10 +27,10 @@ class OFXConverter:
         with open(self.template, 'r') as file:
             template = Template(file.read())
         with open(self.output, 'wb') as file:
-            file.write(template.render(entries=entries) \
-                       .replace('\n', '\r\n') \
-                       .replace('ã', 'a') \
-                       .replace('ç', 'c') \
+            file.write(template.render(entries=entries)
+                       .replace('\n', '\r\n')
+                       .replace('ã', 'a')
+                       .replace('ç', 'c')
                        .encode('us-ascii', 'ignore') + b'\n')
 
 
