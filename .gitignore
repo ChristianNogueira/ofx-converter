@@ -1,7 +1,6 @@
 *.ofx
 *.xls
 *.xlsx
-*.xml
 .idea/
 .ipynb_checkpoints/
 *.ipynb
