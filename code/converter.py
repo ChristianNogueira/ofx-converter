@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 import pandas as pd
 from jinja2 import Template
 from pathlib import Path
@@ -8,10 +9,11 @@ from pathlib import Path
 
 class OFXConverter:
 
-    def __init__(self, excel):
-        self.template = 'template-neon-contabilizei.xml'
+    def __init__(self, excel, template):
+        self.template = template
         self.excel = excel
-        self.output = '/'.join(map(str, [Path(excel).parent, Path(excel).stem])) + '.ofx'
+        self.output_file_name = str(Path(excel).stem) + '.ofx'
+        self.output_file_path = '/'.join([str(Path(excel).parent), self.output_file_name])
 
     def read_data(self):
         df = pd.read_excel(self.excel, usecols=['Descrição', 'Data', 'Valor'])
@@ -26,14 +28,9 @@ class OFXConverter:
         entries = self.read_data()
         with open(self.template, 'r') as file:
             template = Template(file.read())
-        with open(self.output, 'wb') as file:
+        with open(self.output_file_path, 'wb') as file:
             file.write(template.render(entries=entries)
                        .replace('\n', '\r\n')
                        .replace('ã', 'a')
                        .replace('ç', 'c')
                        .encode('us-ascii', 'ignore') + b'\n')
-
-
-if __name__ == '__main__':
-    ofx = OFXConverter('/home/christian/Downloads/lebrandt/extrato_periodo_neon_2020-08.xlsx')
-    ofx.create()

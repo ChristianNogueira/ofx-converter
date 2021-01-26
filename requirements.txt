@@ -1,0 +1,6 @@
+flask
+pandas
+jinja2
+werkzeug
+waitress
+openpyxl
