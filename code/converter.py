@@ -9,7 +9,7 @@ from pathlib import Path
 class OFXConverter:
 
     def __init__(self, excel):
-        self.template = 'template-neon-contabilizei.xml'
+        self.template = 'ofx-template.xml'
         self.excel = excel
         self.output = '/'.join(map(str, [Path(excel).parent, Path(excel).stem])) + '.ofx'
 
@@ -32,8 +32,3 @@ class OFXConverter:
                        .replace('ã', 'a')
                        .replace('ç', 'c')
                        .encode('us-ascii', 'ignore') + b'\n')
-
-
-if __name__ == '__main__':
-    ofx = OFXConverter('/home/christian/Downloads/lebrandt/extrato_periodo_neon_2020-08.xlsx')
-    ofx.create()
