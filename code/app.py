@@ -4,7 +4,7 @@ from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from waitress import serve
 
-from converter import OFXConverter
+from src.converter import OFXConverter
 
 
 ALLOWED_EXTENSIONS = {'xlsx', 'xls'}
@@ -46,10 +46,10 @@ def upload_file():
     <h1>OFX Converter</h1>
     <p>Upload neon month statement to convert to ofx</p>
     <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
+      <input type=file name=File>
       <br/>
       <br/>
-      <input type=submit value=Upload>
+      <input type=submit value=Process>
     </form>
     <br/>
     <br/>
