@@ -14,13 +14,14 @@ class OFXConverter:
         self.output_file_name = str(Path(excel).stem) + '.ofx'
         self.output_file_path = '/'.join([str(Path(excel).parent), self.output_file_name])
 
+    @staticmethod
+    def translate_chars(s):
+        translation = {'ã': 'a', 'ç': 'c', '\n': '\r\n'}
+        return s.translate(translation)
+
     def create(self):
         entries = NeonExcel(self.excel).read_data()
         with open(self.template, 'r') as file:
             template = Template(file.read())
         with open(self.output_file_path, 'wb') as file:
-            file.write(template.render(entries=entries)
-                       .replace('\n', '\r\n')
-                       .replace('ã', 'a')
-                       .replace('ç', 'c')
-                       .encode('us-ascii', 'ignore') + b'\n')
+            file.write(self.translate_chars(template.render(entries=entries)).encode('us-ascii', 'ignore') + b'\n')
