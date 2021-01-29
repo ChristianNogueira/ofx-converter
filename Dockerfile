@@ -1,10 +1,8 @@
-FROM python:3
+FROM python:slim
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY ./code .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./code .
-
-CMD [ "python", "./app.py" ]
+CMD [ "python", "-u", "./app.py" ]
