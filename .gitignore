@@ -4,5 +4,5 @@
 .idea/
 .ipynb_checkpoints/
 *.ipynb
-!template-neon-contabilizei.xml
-*__pycache__*
+**/__pycache__
+*.pyc
